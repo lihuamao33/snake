@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(233 194 0);
+        }
+
+        #gameCanvas {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="gameCanvas" width="300" height="300" class="canvas"></canvas>
+    <script>
+
+        /* 画布和边框与蛇的
+           颜色变量声明 */
+        /* 常量 */
+        const CANVAS_BORDER_COLOUR = 'black';//声明变量，画布边框为黑色
+        const CANVAS_BACKGROUND_COLOUR = "white";//声明变量，画布背景为白色
+        const SNAKE_COLOUR = 'lightgreen';//声明变量，蛇身为绿色
+        const SNAKE_BORDER_COLOUR = 'darkgreen';//声明变量，蛇身边框为暗绿色
+        /* 坐标表示贪吃蛇 */
+        let snake = [
+            { x: 150, y: 150 },
+            { x: 140, y: 150 },
+            { x: 130, y: 150 },
+            { x: 120, y: 150 },
+            { x: 110, y: 150 },
+        ];
+        //获取canvas元素
+        var gameCanvas = document.getElementById("gameCanvas");
+        //返回一个二维绘制上下文？
+        var ctx = gameCanvas.getContext("2d");
+        //选择画布的背景颜色
+        ctx.fillStyle = CANVAS_BACKGROUND_COLOUR;
+        //选择画布的边框颜色
+        ctx.strokestyle = CANVAS_BORDER_COLOUR;
+        //绘制一个实心的长方形覆盖整个画布
+        ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+        //绘制画布的边框
+        ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
+
+        /* 开始在画布上画蛇 */
+        //调用函数drawSnake 
+        drawSnake();
+        function drawSnake() {
+            //循环遍历蛇的每一部分，并将其绘制到画布上
+            snake.forEach(drawSnakePart);
+        }
+        /*用一个函数为蛇身上每一个部位画一个矩形  */
+        function drawSnakePart(snakePart) {
+            ctx.fillStyle = SNAKE_COLOUR;//蛇身背景颜色 
+            ctx.strokestyle = SNAKE_BORDER_COLOUR;//蛇身边框颜色
+            ctx.fillRect(snakePart.x, snakePart.y, 10, 10);//蛇身坐标位置，绘制“实心”矩形表示蛇
+            ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);//绘制蛇身边框
+        }
+
+        /** 写蛇移动函数
+         * 根据蛇水平移动速度改变蛇的x坐标
+         * 根据蛇垂直移动速度改变蛇的y坐标
+         */
+        function advanceSnake() {
+            const head = { 
+                x: snake[0].x + dx, 
+                y: snake[0].y + dy, 
+            };
+            snake.unshift(head);
+            snake.pop();
+        };
+
+        
+        
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
